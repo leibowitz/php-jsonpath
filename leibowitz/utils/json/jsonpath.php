@@ -5,32 +5,30 @@
  * Licensed under the MIT (MIT-LICENSE.txt) licence.
  */
 
-// API function
-function jsonPath($obj, $expr, $args=null) {
-    $jsonpath = new JsonPath();
-    $jsonpath->resultType = ($args ? $args['resultType'] : "VALUE");
-    $x = $jsonpath->normalize($expr);
-    $jsonpath->obj = $obj;
-    if ($expr && $obj && ($jsonpath->resultType == "VALUE" || $jsonpath->resultType == "PATH")) {
-        $jsonpath->trace(preg_replace("/^\\$;/", "", $x), $obj, "$");
-        if (count($jsonpath->result)) {
-            return $jsonpath->result;
-        }
-        else {
+namespace Leibowitz\Utils\Json;
+
+// JsonPath class
+class JsonPath {
+    var $obj;
+    var $resultType;
+    var $result = array();
+
+    function __construct($obj, $expr, $resultType = "VALUE")
+    {
+        $this->obj = $obj;
+        $this->resultType = $resultType;
+        $x = $this->normalize($expr);
+        $this->trace(preg_replace("/^\\$;/", "", $x), $obj, "$");
+        if (count($this->result)) {
+            return $this->result;
+        } else {
             return false;
         }
     }
-}
-
-// JsonPath class (internal use only)
-class JsonPath {
-    var $obj = null;
-    var $resultType = "Value";
-    var $result = array();
-    var $subx = array();
 
     // normalize path expression
-    function normalize($x) {
+    function normalize($x)
+    {
         $x = preg_replace_callback(array("/[\['](\??\(.*?\))[\]']/", "/\['(.*?)'\]/"), array(&$this, "_callback_01"), $x);
         $x = preg_replace(array("/'?\.'?|\['?/", "/;;;|;;/", "/;$|'?\]|'$/"),
                         array(";", ";..;", ""),
@@ -159,4 +157,3 @@ class JsonPath {
         }
     }
 }
-?>
