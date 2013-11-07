@@ -25,7 +25,7 @@ class JsonPath {
     function getPath($expr)
     {
         $x = $this->normalize($expr);
-        $this->trace(preg_replace("/^\\$;/", "", $x), $obj, "$");
+        $this->trace(preg_replace("/^\\$;/", "", $x), $this->obj, "$");
         if (count($this->result)) {
             return $this->result;
         } else {
