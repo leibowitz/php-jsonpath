@@ -8,7 +8,7 @@
     ],
     "autoload": {
       "psr-0": {
-        "Leibowitz\\Utils\\Json\\JsonPath\\": "src/"
+        "Leibowitz\\Utils\\Json\\": "src/"
       }
     }
 }
