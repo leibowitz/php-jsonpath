@@ -1,0 +1,14 @@
+{
+    "name": "leibowitz/php-jsonpath",
+    "authors": [
+        {
+            "name": "Gianni Moschini",
+            "email": "gianni.moschini+composer@hailocab.com"
+        }
+    ],
+    "autoload": {
+      "psr-0": {
+        "Leibowitz\\Utils\\Json\\JsonPath\\": "src/"
+      }
+    }
+}
