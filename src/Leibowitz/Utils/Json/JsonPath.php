@@ -13,10 +13,17 @@ class JsonPath {
     var $resultType;
     var $result = array();
 
-    function __construct($obj, $expr, $resultType = "VALUE")
+    function __construct($obj, $expr = null, $resultType = "VALUE")
     {
         $this->obj = $obj;
         $this->resultType = $resultType;
+        if($expr) {
+            return $this->getPath($expr);
+        }
+    }
+
+    function getPath($expr)
+    {
         $x = $this->normalize($expr);
         $this->trace(preg_replace("/^\\$;/", "", $x), $obj, "$");
         if (count($this->result)) {
